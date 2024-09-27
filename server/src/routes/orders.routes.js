@@ -7,9 +7,9 @@ import {
 const ordersRouter = Router();
 
 // ! NO FUNCIONA LA RUTA /orders
-ordersRouter.get("/", getOrdersCtrl);
+ordersRouter.get("/", getOrdersCtrl, applyValidations);
 
 // ! FALTAN VALIDACIONES DE DATOS
-ordersRouter.post("/", createOrderCtrl);
+ordersRouter.post("/", createOrderCtrl,applyValidations );
 
 export { ordersRouter };

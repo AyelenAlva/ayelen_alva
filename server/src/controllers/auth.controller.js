@@ -21,20 +21,29 @@ export const signInCtrl = async (req, res) => {
   }
 };
 
-export const signUpCtrl = async (req, res) => {
+export const signUpCtrl =  (req, res) => {
   try {
     // ! Completar la función signUpCtrl
+    res.status(200).json(req.user);
+
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export const signOutCtrl = (_req, res) => {
+export const signOutCtrl = (req, res) => {
   try {
-    // ! Completar la función signOutCtrl
-    res.status(200).json({ message: "Sign out success" });
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: "Error al cerrar sesión" });
+      }
+
+      res.clearCookie("authToken");
+      return res.json({ message: "Cierre de sesión exitoso" });
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+    return res.status(500).json({ message: "Error Inesperado" });
   }
 };
 
@@ -44,4 +53,12 @@ export const getMeCtrl = (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+};
+
+export const validateSessionCtrl = (req, res) => {
+  console.log(req.user);
+  return res.json({
+    message: "Acceso permitido a área protegida",
+    user: req.user,
+  });
 };

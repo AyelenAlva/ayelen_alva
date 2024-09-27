@@ -20,11 +20,15 @@ $form.addEventListener("submit", async (e) => {
     headers: {
       "Content-Type": "application/json",
     },
+
     body: JSON.stringify(entries),
   }).then((response) => {
     if (response.ok) {
+      window.location.href = "/pages/login" 
       // ! REDIRIGIR AL USUARIO A LA PÁGINA PRINCIPAL
     } else {
+      return null ; 
+
       // ! MOSTRAR UN MENSAJE DE ERROR AL USUARIO
     }
   });
